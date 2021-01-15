@@ -21,3 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# cache
+# See https://github.com/facebook/create-react-app/issues/10161 for details.
+.eslintcache
+.cache
