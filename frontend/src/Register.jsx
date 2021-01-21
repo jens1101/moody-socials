@@ -3,22 +3,32 @@ import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert";
+import { useHistory } from "react-router-dom";
 
-export function Register() {
+export function Register({ onRegister = () => {} }) {
+  const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [validated, setValidated] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  function onRegister(event) {
+  function onSubmit(event) {
     const form = event.currentTarget;
 
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
     setValidated(true);
+    event.preventDefault();
+
+    if (form.checkValidity() === false) return;
+
+    try {
+      onRegister({ username, password });
+
+      history.push("/home");
+    } catch (e) {
+      setErrorMessage(e.message);
+    }
   }
 
   return (
@@ -29,7 +39,7 @@ export function Register() {
             <h1>Register</h1>
           </Card.Title>
 
-          <Form onSubmit={onRegister} noValidate validated={validated}>
+          <Form onSubmit={onSubmit} noValidate validated={validated}>
             <div className={"text-left"}>
               <Form.Group controlId={"registerUsername"}>
                 <Form.Label>Username</Form.Label>
@@ -43,6 +53,7 @@ export function Register() {
 
               <Form.Group controlId={"registerPassword"}>
                 <Form.Label>Password</Form.Label>
+                {/* TODO: this validation is incomplete */}
                 <Form.Control
                   required
                   type={"password"}
@@ -77,6 +88,25 @@ export function Register() {
                 </Form.Control.Feedback>
               </Form.Group>
             </div>
+
+            {errorMessage && (
+              <Alert
+                variant="danger"
+                onClose={() => setErrorMessage("")}
+                dismissible
+                className={"text-left"}
+              >
+                <Alert.Heading>Registration Error</Alert.Heading>
+                <p>
+                  An error occurred while attempting to register you. This error
+                  message was provided:
+                </p>
+
+                <blockquote className="blockquote">
+                  <p className="mb-0">{errorMessage}</p>
+                </blockquote>
+              </Alert>
+            )}
 
             <Button variant={"primary"} type={"submit"}>
               Submit
