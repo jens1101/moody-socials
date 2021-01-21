@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Home } from "./Home";
 import { About } from "./About";
+import { Login } from "./Login";
 
 function App() {
   return (
@@ -18,18 +19,27 @@ function App() {
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/about">About</Nav.Link>
             </Nav>
-            <Button variant="primary">Login</Button>
+            <Button variant="primary" href={"/login"}>
+              Login
+            </Button>
           </Navbar.Collapse>
         </Container>
       </Navbar>
 
-      <main className={"mt-3 mb-3"}>
+      <main className={"mt-5 mb-5"}>
         <Switch>
           <Route exact path="/">
             <Home />
           </Route>
           <Route path="/about">
             <About />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="*">
+            {/* Use the homepage as a fallback route */}
+            <Home />
           </Route>
         </Switch>
       </main>
