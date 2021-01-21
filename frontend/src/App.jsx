@@ -6,6 +6,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Home } from "./Home";
 import { About } from "./About";
 import { Login } from "./Login";
+import { Register } from "./Register";
 
 function App() {
   return (
@@ -36,6 +37,9 @@ function App() {
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/register">
+            <Register />
           </Route>
           <Route path="*">
             {/* Use the homepage as a fallback route */}
