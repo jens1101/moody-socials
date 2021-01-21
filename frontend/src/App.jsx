@@ -2,11 +2,13 @@ import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
-import { Feed } from "./Feed";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Home } from "./Home";
+import { About } from "./About";
 
 function App() {
   return (
-    <div>
+    <BrowserRouter>
       <Navbar variant={"dark"} bg={"dark"} expand={"sm"}>
         <Container>
           <Navbar.Brand href="/">Moody Socials</Navbar.Brand>
@@ -22,12 +24,16 @@ function App() {
       </Navbar>
 
       <main className={"mt-3 mb-3"}>
-        <Container>
-          <h1>Feed</h1>
-        </Container>
-        <Feed />
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/about">
+            <About />
+          </Route>
+        </Switch>
       </main>
-    </div>
+    </BrowserRouter>
   );
 }
 
