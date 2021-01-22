@@ -9,6 +9,7 @@ import { Home } from "./Home";
 import { About } from "./About";
 import { Login } from "./Login";
 import { Register } from "./Register";
+import { ManageSocialProfiles } from "./ManageSocialProfiles";
 import { getStoredUserData, login, logout, register } from "./provider";
 
 function App() {
@@ -57,7 +58,7 @@ function App() {
                   alignRight={true}
                 >
                   <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-                  <NavDropdown.Item href="/manage-profile">
+                  <NavDropdown.Item href="/manage-social-profiles">
                     Manage Social Media Profiles
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
@@ -88,6 +89,9 @@ function App() {
           </Route>
           <Route path="/register">
             <Register onRegister={onRegister} />
+          </Route>
+          <Route path="/manage-social-profiles">
+            <ManageSocialProfiles />
           </Route>
           <Route path="*">
             {/* Use the homepage as a fallback route */}
