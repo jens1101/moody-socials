@@ -1,6 +1,3 @@
-// TODO: make these functions async since that is what they will be once
-//  properly implemented
-
 // TODO: add comments!
 
 async function simulateLag(min = 400, max = 1500) {
