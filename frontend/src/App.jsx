@@ -15,8 +15,8 @@ import { getStoredUserData, login, register } from "./provider";
 function App() {
   const [userData, setUserData] = useState(getStoredUserData());
 
-  function onRegister({ username, password }) {
-    setUserData(register({ username, password }));
+  async function onRegister({ username, password }) {
+    setUserData(await register({ username, password }));
   }
 
   function onLogin({ username, password }) {

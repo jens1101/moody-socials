@@ -3,7 +3,12 @@
 
 // TODO: add comments!
 
-export function register({ username, password }) {
+export async function register({ username, password }) {
+  // Simulate server lag
+  await new Promise((resolve) =>
+    setTimeout(resolve, 400 + Math.random() * 700)
+  );
+
   if (username.toLowerCase() === "error") {
     throw new Error("That username is hard-coded to trigger an error");
   }

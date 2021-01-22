@@ -13,22 +13,26 @@ export function Register({ onRegister = () => {} }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [validated, setValidated] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [disableSubmit, setDisableSubmit] = useState(false);
 
-  function onSubmit(event) {
+  async function onSubmit(event) {
     const form = event.currentTarget;
 
     setValidated(true);
     event.preventDefault();
+    setDisableSubmit(true);
 
-    if (form.checkValidity() === false) return;
+    if (form.checkValidity()) {
+      try {
+        await onRegister({ username, password });
 
-    try {
-      onRegister({ username, password });
-
-      history.push("/home");
-    } catch (e) {
-      setErrorMessage(e.message);
+        history.push("/home");
+      } catch (e) {
+        setErrorMessage(e.message);
+      }
     }
+
+    setDisableSubmit(false);
   }
 
   return (
@@ -110,7 +114,11 @@ export function Register({ onRegister = () => {} }) {
               </Alert>
             )}
 
-            <Button variant={"primary"} type={"submit"}>
+            <Button
+              variant={"primary"}
+              type={"submit"}
+              disabled={disableSubmit}
+            >
               Submit
             </Button>
           </Form>
