@@ -1,6 +1,8 @@
 // TODO: make these functions async since that is what they will be once
 //  properly implemented
 
+// TODO: add comments!
+
 export function register({ username, password }) {
   if (username.toLowerCase() === "error") {
     throw new Error("That username is hard-coded to trigger an error");
@@ -31,9 +33,12 @@ export function login({ username, password }) {
 }
 
 export function getStoredUserData() {
-  // TODO: flesh this out more, like by extending a template object
   try {
-    return JSON.parse(localStorage.getItem("userData"));
+    const userData = JSON.parse(localStorage.getItem("userData"));
+
+    return {
+      username: userData.username,
+    };
   } catch (e) {
     return null;
   }
