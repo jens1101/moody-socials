@@ -1,5 +1,8 @@
+// TODO: make these functions async since that is what they will be once
+//  properly implemented
+
 export function register({ username, password }) {
-  if (username === "error") {
+  if (username.toLowerCase() === "error") {
     throw new Error("That username is hard-coded to trigger an error");
   }
 
@@ -9,6 +12,20 @@ export function register({ username, password }) {
 
   localStorage.clear();
   localStorage.setItem("userData", JSON.stringify(userData));
+
+  return userData;
+}
+
+export function login({ username, password }) {
+  if (username.toLowerCase() === "guest") {
+    return register({ username });
+  }
+
+  const userData = getStoredUserData();
+
+  if (userData?.username !== username) {
+    throw new Error(`Account for "${username}" does not exist`);
+  }
 
   return userData;
 }
