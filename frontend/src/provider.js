@@ -3,6 +3,12 @@
 
 // TODO: add comments!
 
+async function simulateLag(min = 400, max = 1500) {
+  await new Promise((resolve) =>
+    setTimeout(resolve, min + Math.random() * (max - min))
+  );
+}
+
 export function getStoredUserData() {
   try {
     const userData = JSON.parse(localStorage.getItem("userData"));
@@ -16,10 +22,7 @@ export function getStoredUserData() {
 }
 
 export async function register({ username, password }) {
-  // Simulate server lag
-  await new Promise((resolve) =>
-    setTimeout(resolve, 400 + Math.random() * 700)
-  );
+  await simulateLag();
 
   if (username.toLowerCase() === "error") {
     throw new Error("That username is hard-coded to trigger an error");
@@ -36,10 +39,7 @@ export async function register({ username, password }) {
 }
 
 export async function login({ username, password }) {
-  // Simulate server lag
-  await new Promise((resolve) =>
-    setTimeout(resolve, 400 + Math.random() * 700)
-  );
+  await simulateLag();
 
   if (username.toLowerCase() === "guest") {
     return register({ username });
@@ -48,6 +48,8 @@ export async function login({ username, password }) {
   throw new Error(`Account for "${username}" does not exist`);
 }
 
-export function logout() {
+export async function logout() {
+  await simulateLag();
+
   localStorage.clear();
 }

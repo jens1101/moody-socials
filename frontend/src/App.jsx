@@ -9,11 +9,11 @@ import { Home } from "./Home";
 import { About } from "./About";
 import { Login } from "./Login";
 import { Register } from "./Register";
-import { Logout } from "./Logout";
-import { getStoredUserData, login, register } from "./provider";
+import { getStoredUserData, login, logout, register } from "./provider";
 
 function App() {
   const [userData, setUserData] = useState(getStoredUserData());
+  const [disableLogout, setDisableLogout] = useState(false);
 
   async function onRegister({ username, password }) {
     setUserData(await register({ username, password }));
@@ -23,13 +23,11 @@ function App() {
     setUserData(await login({ username, password }));
   }
 
-  /**
-   * Callback that gets triggered when the user logs out. This re-fetches the
-   * locally stored user data (which should be `null` if the logout was
-   * successful). This is necessary since this `App` component doesn't re-render
-   * when routes change.
-   */
-  function onLogout() {
+  async function onLogout() {
+    setDisableLogout(true);
+    await logout();
+    // TODO: if the user is currently on a guarded route then take him home
+    setDisableLogout(false);
     setUserData(getStoredUserData());
   }
 
@@ -63,7 +61,13 @@ function App() {
                     Manage Social Media Profiles
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
+                  <NavDropdown.Item
+                    as="button"
+                    disabled={disableLogout}
+                    onClick={onLogout}
+                  >
+                    Logout
+                  </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
             )}
@@ -84,9 +88,6 @@ function App() {
           </Route>
           <Route path="/register">
             <Register onRegister={onRegister} />
-          </Route>
-          <Route path="/logout">
-            <Logout onLogout={onLogout} redirectPath={"/home"} />
           </Route>
           <Route path="*">
             {/* Use the homepage as a fallback route */}
