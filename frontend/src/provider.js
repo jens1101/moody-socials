@@ -3,6 +3,18 @@
 
 // TODO: add comments!
 
+export function getStoredUserData() {
+  try {
+    const userData = JSON.parse(localStorage.getItem("userData"));
+
+    return {
+      username: userData.username,
+    };
+  } catch (e) {
+    return null;
+  }
+}
+
 export async function register({ username, password }) {
   // Simulate server lag
   await new Promise((resolve) =>
@@ -34,18 +46,6 @@ export async function login({ username, password }) {
   }
 
   throw new Error(`Account for "${username}" does not exist`);
-}
-
-export function getStoredUserData() {
-  try {
-    const userData = JSON.parse(localStorage.getItem("userData"));
-
-    return {
-      username: userData.username,
-    };
-  } catch (e) {
-    return null;
-  }
 }
 
 export function logout() {
