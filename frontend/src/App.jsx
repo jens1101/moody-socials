@@ -10,6 +10,7 @@ import { About } from "./About";
 import { Login } from "./Login";
 import { Register } from "./Register";
 import { ManageSocialProfiles } from "./ManageSocialProfiles";
+import { Account } from "./Account";
 import { getStoredUserData, login, logout, register } from "./provider";
 
 function App() {
@@ -53,11 +54,14 @@ function App() {
             {userData && (
               <Nav>
                 <NavDropdown
-                  title={"Profile"}
-                  id={"main-nav-profile"}
+                  title={"Account"}
+                  id={"main-nav-account"}
                   alignRight={true}
                 >
-                  <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                  <NavDropdown.Header>
+                    Logged in as {userData.username}
+                  </NavDropdown.Header>
+                  <NavDropdown.Item href="/account">Account</NavDropdown.Item>
                   <NavDropdown.Item href="/manage-social-profiles">
                     Manage Social Media Profiles
                   </NavDropdown.Item>
@@ -92,6 +96,9 @@ function App() {
           </Route>
           <Route path="/manage-social-profiles">
             <ManageSocialProfiles />
+          </Route>
+          <Route path={"/account"}>
+            <Account username={userData.username} />
           </Route>
           <Route path="*">
             {/* Use the homepage as a fallback route */}
