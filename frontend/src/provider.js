@@ -23,18 +23,17 @@ export async function register({ username, password }) {
   return userData;
 }
 
-export function login({ username, password }) {
+export async function login({ username, password }) {
+  // Simulate server lag
+  await new Promise((resolve) =>
+    setTimeout(resolve, 400 + Math.random() * 700)
+  );
+
   if (username.toLowerCase() === "guest") {
     return register({ username });
   }
 
-  const userData = getStoredUserData();
-
-  if (userData?.username !== username) {
-    throw new Error(`Account for "${username}" does not exist`);
-  }
-
-  return userData;
+  throw new Error(`Account for "${username}" does not exist`);
 }
 
 export function getStoredUserData() {

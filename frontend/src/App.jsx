@@ -19,8 +19,8 @@ function App() {
     setUserData(await register({ username, password }));
   }
 
-  function onLogin({ username, password }) {
-    setUserData(login({ username, password }));
+  async function onLogin({ username, password }) {
+    setUserData(await login({ username, password }));
   }
 
   /**

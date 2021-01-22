@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import { useHistory } from "react-router-dom";
 
-export function Register({ onRegister = () => {} }) {
+export function Register({ onRegister = async () => {} }) {
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
