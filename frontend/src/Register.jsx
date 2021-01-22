@@ -53,12 +53,14 @@ export function Register({ onRegister = () => {} }) {
 
               <Form.Group controlId={"registerPassword"}>
                 <Form.Label>Password</Form.Label>
-                {/* TODO: this validation is incomplete */}
                 <Form.Control
                   required
                   type={"password"}
                   value={password}
-                  onChange={(event) => setPassword(event.target.value)}
+                  onChange={(event) => {
+                    setPassword(event.target.value);
+                    setConfirmPassword("");
+                  }}
                 />
               </Form.Group>
 
