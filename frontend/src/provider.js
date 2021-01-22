@@ -14,10 +14,14 @@ export function register({ username, password }) {
 }
 
 export function getStoredUserData() {
-  // TODO: flesh this out more
+  // TODO: flesh this out more, like by extending a template object
   try {
     return JSON.parse(localStorage.getItem("userData"));
   } catch (e) {
     return null;
   }
+}
+
+export function logout() {
+  localStorage.clear();
 }

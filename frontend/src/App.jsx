@@ -9,13 +9,24 @@ import { Home } from "./Home";
 import { About } from "./About";
 import { Login } from "./Login";
 import { Register } from "./Register";
+import { Logout } from "./Logout";
 import { getStoredUserData, register } from "./provider";
 
 function App() {
-  const [userData, setUserData] = useState(getStoredUserData);
+  const [userData, setUserData] = useState(getStoredUserData());
 
   function onRegister({ username, password }) {
     setUserData(register({ username, password }));
+  }
+
+  /**
+   * Callback that gets triggered when the user logs out. This re-fetches the
+   * locally stored user data (which should be `null` if the logout was
+   * successful). This is necessary since this `App` component doesn't re-render
+   * when routes change.
+   */
+  function onLogout() {
+    setUserData(getStoredUserData());
   }
 
   return (
@@ -65,10 +76,14 @@ function App() {
             <About />
           </Route>
           <Route path="/login">
+            {/* TODO: add callback */}
             <Login />
           </Route>
           <Route path="/register">
             <Register onRegister={onRegister} />
+          </Route>
+          <Route path="/logout">
+            <Logout onLogout={onLogout} redirectPath={"/home"} />
           </Route>
           <Route path="*">
             {/* Use the homepage as a fallback route */}
