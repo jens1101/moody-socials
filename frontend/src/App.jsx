@@ -5,6 +5,7 @@ import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { ROUTES } from "./constants";
 import { Home } from "./Home";
 import { About } from "./About";
 import { Login } from "./Login";
@@ -49,16 +50,16 @@ function App() {
     <BrowserRouter>
       <Navbar variant={"dark"} bg={"dark"} expand={"sm"}>
         <Container>
-          <Navbar.Brand href="/">Moody Socials</Navbar.Brand>
+          <Navbar.Brand href={ROUTES.HOME}>Moody Socials</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/about">About</Nav.Link>
+              <Nav.Link href={ROUTES.HOME}>Home</Nav.Link>
+              <Nav.Link href={ROUTES.ABOUT}>About</Nav.Link>
             </Nav>
 
             {!userData && (
-              <Button variant="primary" href={"/login"}>
+              <Button variant="primary" href={ROUTES.LOGIN}>
                 Login
               </Button>
             )}
@@ -73,8 +74,10 @@ function App() {
                   <NavDropdown.Header>
                     Logged in as {userData.username}
                   </NavDropdown.Header>
-                  <NavDropdown.Item href="/account">Account</NavDropdown.Item>
-                  <NavDropdown.Item href="/manage-social-profiles">
+                  <NavDropdown.Item href={ROUTES.ACCOUNT}>
+                    Account
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href={ROUTES.MANAGE_SOCIAL_PROFILES}>
                     Manage Social Media Profiles
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
@@ -94,22 +97,22 @@ function App() {
 
       <main className={"mt-5 mb-5"}>
         <Switch>
-          <Route exact path="/">
+          <Route exact path={ROUTES.HOME}>
             <Home />
           </Route>
-          <Route path="/about">
+          <Route path={ROUTES.ABOUT}>
             <About />
           </Route>
-          <Route path="/login">
+          <Route path={ROUTES.LOGIN}>
             <Login onLogin={onLogin} />
           </Route>
-          <Route path="/register">
+          <Route path={ROUTES.REGISTER}>
             <Register onRegister={onRegister} />
           </Route>
-          <Route path="/manage-social-profiles">
+          <Route path={ROUTES.MANAGE_SOCIAL_PROFILES}>
             <ManageSocialProfiles />
           </Route>
-          <Route path={"/account"}>
+          <Route path={ROUTES.ACCOUNT}>
             <Account username={userData?.username} onDelete={onDelete} />
           </Route>
           <Route path="*">

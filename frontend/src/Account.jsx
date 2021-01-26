@@ -2,6 +2,7 @@ import { useState } from "react";
 import Alert from "react-bootstrap/Alert";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
+import { ROUTES } from "./constants";
 
 export function Account({ username, onDelete }) {
   const [disableDeleteAccount, setDisableDeleteAccount] = useState(false);
@@ -14,11 +15,11 @@ export function Account({ username, onDelete }) {
 
       <hr />
 
-      <a href={"/edit-password"}>
+      <a href={ROUTES.EDIT_PASSWORD}>
         <p>Edit Password</p>
       </a>
 
-      <a href={"/manage-social-profiles"}>
+      <a href={ROUTES.MANAGE_SOCIAL_PROFILES}>
         <p>Manage Social Media Profiles</p>
       </a>
 

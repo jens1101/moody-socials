@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import { useHistory } from "react-router-dom";
+import { ROUTES } from "./constants";
 
 export function Register({ onRegister = async () => {} }) {
   const history = useHistory();
@@ -26,13 +27,13 @@ export function Register({ onRegister = async () => {} }) {
       try {
         await onRegister({ username, password });
 
-        history.push("/home");
+        setDisableSubmit(false);
+        history.push(ROUTES.HOME);
       } catch (e) {
+        setDisableSubmit(false);
         setErrorMessage(e.message);
       }
     }
-
-    setDisableSubmit(false);
   }
 
   return (
@@ -126,7 +127,7 @@ export function Register({ onRegister = async () => {} }) {
       </Card>
 
       <p className={"mt-3"}>
-        Already have an account? <a href={"/login"}>Login</a>
+        Already have an account? <a href={ROUTES.LOGIN}>Login</a>
       </p>
     </Container>
   );
