@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import { Link, useHistory } from "react-router-dom";
 import { ROUTES } from "./constants";
 
-export function Account({ username, onDelete }) {
+export function Account({ username, onDelete = () => {} }) {
   const history = useHistory();
   const [disableDeleteAccount, setDisableDeleteAccount] = useState(false);
   const [deleteAccountError, setDeleteAccountError] = useState("");

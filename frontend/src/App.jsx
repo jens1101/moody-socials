@@ -2,13 +2,13 @@ import { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import Button from "react-bootstrap/Button";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { ROUTES } from "./constants";
 import { Home } from "./Home";
 import { About } from "./About";
 import { Login } from "./Login";
+import { Logout } from "./Logout";
 import { Register } from "./Register";
 import { ManageSocialProfiles } from "./ManageSocialProfiles";
 import { Account } from "./Account";
@@ -23,7 +23,6 @@ import {
 
 function App() {
   const [userData, setUserData] = useState(getStoredUserData());
-  const [disableLogout, setDisableLogout] = useState(false);
 
   async function onRegister({ username, password }) {
     setUserData(await register({ username, password }));
@@ -34,11 +33,7 @@ function App() {
   }
 
   async function onLogout() {
-    setDisableLogout(true);
     await logout();
-    // TODO: if the user is currently on a guarded route then take him home. I think I will need a
-    //  "Logout" component.
-    setDisableLogout(false);
     setUserData(getStoredUserData());
   }
 
@@ -93,13 +88,9 @@ function App() {
 
                   <NavDropdown.Divider />
 
-                  <NavDropdown.Item
-                    as="button"
-                    disabled={disableLogout}
-                    onClick={onLogout}
-                  >
+                  <Link className={"dropdown-item"} to={ROUTES.LOGOUT}>
                     Logout
-                  </NavDropdown.Item>
+                  </Link>
                 </NavDropdown>
               </Nav>
             )}
@@ -126,6 +117,9 @@ function App() {
           </Route>
           <Route path={ROUTES.ACCOUNT}>
             <Account username={userData?.username} onDelete={onDelete} />
+          </Route>
+          <Route path={ROUTES.LOGOUT}>
+            <Logout onLogout={onLogout} />
           </Route>
           <Route path="*">
             {/* 404 page */}
