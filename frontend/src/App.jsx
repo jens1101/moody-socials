@@ -109,25 +109,25 @@ function App() {
           <Route exact path={ROUTES.HOME}>
             <Home />
           </Route>
-          <Route path={ROUTES.ABOUT}>
+          <Route exact path={ROUTES.ABOUT}>
             <About />
           </Route>
-          <Route path={ROUTES.LOGIN}>
+          <Route exact path={ROUTES.LOGIN}>
             <Login onLogin={onLogin} />
           </Route>
-          <Route path={ROUTES.REGISTER}>
+          <Route exact path={ROUTES.REGISTER}>
             <Register onRegister={onRegister} />
           </Route>
-          <Route path={ROUTES.MANAGE_SOCIAL_PROFILES}>
+          <Route exact path={ROUTES.MANAGE_SOCIAL_PROFILES}>
             <ManageSocialProfiles />
           </Route>
-          <Route path={ROUTES.ACCOUNT}>
+          <Route exact path={ROUTES.ACCOUNT}>
             <Account username={userData?.username} onDelete={onDelete} />
           </Route>
-          <Route path={ROUTES.CHANGE_PASSWORD}>
+          <Route exact path={ROUTES.CHANGE_PASSWORD}>
             <ChangePassword onPasswordChange={onPasswordChange} />
           </Route>
-          <Route path={ROUTES.LOGOUT}>
+          <Route exact path={ROUTES.LOGOUT}>
             <Logout onLogout={onLogout} />
           </Route>
           <Route path="*">
