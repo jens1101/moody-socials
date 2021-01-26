@@ -11,6 +11,7 @@ import { Login } from "./Login";
 import { Register } from "./Register";
 import { ManageSocialProfiles } from "./ManageSocialProfiles";
 import { Account } from "./Account";
+import { NotFound } from "./NotFound";
 import { getStoredUserData, login, logout, register } from "./provider";
 
 function App() {
@@ -101,8 +102,8 @@ function App() {
             <Account username={userData.username} />
           </Route>
           <Route path="*">
-            {/* Use the homepage as a fallback route */}
-            <Home />
+            {/* 404 page */}
+            <NotFound />
           </Route>
           {/* TODO: add a guard here to prevent accessing routes when you are not logged in */}
         </Switch>
