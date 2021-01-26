@@ -30,9 +30,9 @@ User.prototype = {
     create : function(body, callback) 
     {
 
-        var pwd = body.password;
+        var encryptedPassword = body.password;
      
-        body.password = bcrypt.hashSync(pwd,10);
+        body.password = bcrypt.hashSync(encryptedPassword,10);
 
         
         var bind = [];
