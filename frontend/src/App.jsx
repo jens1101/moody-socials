@@ -5,6 +5,7 @@ import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { ROUTES } from "./constants";
+import { PrivateRoute } from "./PrivateRoute";
 import { Home } from "./Home";
 import { About } from "./About";
 import { Login } from "./Login";
@@ -118,15 +119,15 @@ function App() {
           <Route exact path={ROUTES.REGISTER}>
             <Register onRegister={onRegister} />
           </Route>
-          <Route exact path={ROUTES.MANAGE_SOCIAL_PROFILES}>
+          <PrivateRoute exact path={ROUTES.MANAGE_SOCIAL_PROFILES}>
             <ManageSocialProfiles />
-          </Route>
-          <Route exact path={ROUTES.ACCOUNT}>
+          </PrivateRoute>
+          <PrivateRoute exact path={ROUTES.ACCOUNT}>
             <Account username={userData?.username} onDelete={onDelete} />
-          </Route>
-          <Route exact path={ROUTES.CHANGE_PASSWORD}>
+          </PrivateRoute>
+          <PrivateRoute exact path={ROUTES.CHANGE_PASSWORD}>
             <ChangePassword onPasswordChange={onPasswordChange} />
-          </Route>
+          </PrivateRoute>
           <Route exact path={ROUTES.LOGOUT}>
             <Logout onLogout={onLogout} />
           </Route>

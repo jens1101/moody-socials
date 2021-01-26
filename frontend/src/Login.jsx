@@ -4,11 +4,15 @@ import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { ROUTES } from "./constants";
 
 export function Login({ onLogin = async () => {} }) {
   const history = useHistory();
+  const location = useLocation();
+
+  const { from } = location.state || { from: { pathname: ROUTES.HOME } };
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [validated, setValidated] = useState(false);
@@ -29,7 +33,7 @@ export function Login({ onLogin = async () => {} }) {
       await onLogin({ username, password });
 
       setDisableSubmit(false);
-      history.push(ROUTES.HOME);
+      history.replace(from);
     } catch (e) {
       setDisableSubmit(false);
       setErrorMessage(e.message);
