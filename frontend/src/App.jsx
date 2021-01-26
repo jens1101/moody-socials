@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { ROUTES } from "./constants";
 import { Home } from "./Home";
 import { About } from "./About";
@@ -36,32 +36,37 @@ function App() {
   async function onLogout() {
     setDisableLogout(true);
     await logout();
-    // TODO: if the user is currently on a guarded route then take him home
+    // TODO: if the user is currently on a guarded route then take him home. I think I will need a
+    //  "Logout" component.
     setDisableLogout(false);
     setUserData(getStoredUserData());
   }
 
   async function onDelete(username) {
     await deleteAccount(username);
-    // TODO: if the user is currently on a guarded route then take him home
+    setUserData(getStoredUserData());
   }
 
   return (
     <BrowserRouter>
       <Navbar variant={"dark"} bg={"dark"} expand={"sm"}>
         <Container>
-          <Navbar.Brand href={ROUTES.HOME}>Moody Socials</Navbar.Brand>
+          <Navbar.Brand>Moody Socials</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link href={ROUTES.HOME}>Home</Nav.Link>
-              <Nav.Link href={ROUTES.ABOUT}>About</Nav.Link>
+              <Link className={"nav-link"} to={ROUTES.HOME}>
+                Home
+              </Link>
+              <Link className={"nav-link"} to={ROUTES.ABOUT}>
+                About
+              </Link>
             </Nav>
 
             {!userData && (
-              <Button variant="primary" href={ROUTES.LOGIN}>
+              <Link className={"btn btn-primary"} to={ROUTES.LOGIN}>
                 Login
-              </Button>
+              </Link>
             )}
 
             {userData && (
@@ -74,13 +79,20 @@ function App() {
                   <NavDropdown.Header>
                     Logged in as {userData.username}
                   </NavDropdown.Header>
-                  <NavDropdown.Item href={ROUTES.ACCOUNT}>
+
+                  <Link className={"dropdown-item"} to={ROUTES.ACCOUNT}>
                     Account
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href={ROUTES.MANAGE_SOCIAL_PROFILES}>
+                  </Link>
+
+                  <Link
+                    className={"dropdown-item"}
+                    to={ROUTES.MANAGE_SOCIAL_PROFILES}
+                  >
                     Manage Social Media Profiles
-                  </NavDropdown.Item>
+                  </Link>
+
                   <NavDropdown.Divider />
+
                   <NavDropdown.Item
                     as="button"
                     disabled={disableLogout}

@@ -4,7 +4,7 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { ROUTES } from "./constants";
 
 export function Register({ onRegister = async () => {} }) {
@@ -127,7 +127,7 @@ export function Register({ onRegister = async () => {} }) {
       </Card>
 
       <p className={"mt-3"}>
-        Already have an account? <a href={ROUTES.LOGIN}>Login</a>
+        Already have an account? <Link to={ROUTES.LOGIN}>Login</Link>
       </p>
     </Container>
   );
