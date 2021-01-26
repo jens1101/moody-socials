@@ -12,8 +12,10 @@ import { Logout } from "./Logout";
 import { Register } from "./Register";
 import { ManageSocialProfiles } from "./ManageSocialProfiles";
 import { Account } from "./Account";
+import { ChangePassword } from "./ChangePassword";
 import { NotFound } from "./NotFound";
 import {
+  changePassword,
   deleteAccount,
   getStoredUserData,
   login,
@@ -40,6 +42,10 @@ function App() {
   async function onDelete(username) {
     await deleteAccount(username);
     setUserData(getStoredUserData());
+  }
+
+  async function onPasswordChange({ oldPassword, newPassword }) {
+    await changePassword({ oldPassword, newPassword });
   }
 
   return (
@@ -117,6 +123,9 @@ function App() {
           </Route>
           <Route path={ROUTES.ACCOUNT}>
             <Account username={userData?.username} onDelete={onDelete} />
+          </Route>
+          <Route path={ROUTES.CHANGE_PASSWORD}>
+            <ChangePassword onPasswordChange={onPasswordChange} />
           </Route>
           <Route path={ROUTES.LOGOUT}>
             <Logout onLogout={onLogout} />

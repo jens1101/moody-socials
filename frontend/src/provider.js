@@ -51,6 +51,10 @@ export async function logout() {
   localStorage.clear();
 }
 
+export async function changePassword({ oldPassword, newPassword }) {
+  await simulateLag();
+}
+
 export async function deleteAccount(username) {
   await simulateLag();
 

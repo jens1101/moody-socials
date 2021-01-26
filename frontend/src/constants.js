@@ -6,5 +6,5 @@ export const ROUTES = {
   REGISTER: "/register",
   ACCOUNT: "/account",
   MANAGE_SOCIAL_PROFILES: "/manage-social-profiles",
-  EDIT_PASSWORD: "/edit-password",
+  CHANGE_PASSWORD: "/edit-password",
 };

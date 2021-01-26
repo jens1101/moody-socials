@@ -16,22 +16,23 @@ export function Login({ onLogin = async () => {} }) {
   const [disableSubmit, setDisableSubmit] = useState(false);
 
   async function onSubmit(event) {
-    const form = event.currentTarget;
-
     setValidated(true);
     event.preventDefault();
+
+    if (!event.currentTarget.checkValidity()) {
+      return;
+    }
+
     setDisableSubmit(true);
 
-    if (form.checkValidity()) {
-      try {
-        await onLogin({ username, password });
+    try {
+      await onLogin({ username, password });
 
-        setDisableSubmit(false);
-        history.push(ROUTES.HOME);
-      } catch (e) {
-        setDisableSubmit(false);
-        setErrorMessage(e.message);
-      }
+      setDisableSubmit(false);
+      history.push(ROUTES.HOME);
+    } catch (e) {
+      setDisableSubmit(false);
+      setErrorMessage(e.message);
     }
   }
 

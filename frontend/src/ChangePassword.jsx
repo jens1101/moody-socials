@@ -4,14 +4,14 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { ROUTES } from "./constants";
 
-export function Register({ onRegister = async () => {} }) {
+export function ChangePassword({ onPasswordChange = async () => {} }) {
   const history = useHistory();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [validated, setValidated] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [disableSubmit, setDisableSubmit] = useState(false);
@@ -27,10 +27,10 @@ export function Register({ onRegister = async () => {} }) {
     setDisableSubmit(true);
 
     try {
-      await onRegister({ username, password });
+      await onPasswordChange({ oldPassword, newPassword });
 
       setDisableSubmit(false);
-      history.push(ROUTES.HOME);
+      history.push(ROUTES.ACCOUNT);
     } catch (e) {
       setDisableSubmit(false);
       setErrorMessage(e.message);
@@ -42,50 +42,50 @@ export function Register({ onRegister = async () => {} }) {
       <Card bg={"light"}>
         <Card.Body>
           <Card.Title>
-            <h1>Register</h1>
+            <h1>Change Password</h1>
           </Card.Title>
 
           <Form onSubmit={onSubmit} noValidate validated={validated}>
             <div className={"text-left"}>
-              <Form.Group controlId={"registerUsername"}>
-                <Form.Label>Username</Form.Label>
-                <Form.Control
-                  required
-                  type={"text"}
-                  value={username}
-                  onChange={(event) => setUsername(event.target.value)}
-                />
-              </Form.Group>
-
-              <Form.Group controlId={"registerPassword"}>
-                <Form.Label>Password</Form.Label>
+              <Form.Group controlId={"changePasswordOldPassword"}>
+                <Form.Label>Old password</Form.Label>
                 <Form.Control
                   required
                   type={"password"}
-                  value={password}
+                  value={oldPassword}
+                  onChange={(event) => setOldPassword(event.target.value)}
+                />
+              </Form.Group>
+
+              <Form.Group controlId={"changePasswordNewPassword"}>
+                <Form.Label>New password</Form.Label>
+                <Form.Control
+                  required
+                  type={"password"}
+                  value={newPassword}
                   onChange={(event) => {
-                    setPassword(event.target.value);
-                    setConfirmPassword("");
+                    setNewPassword(event.target.value);
+                    setConfirmNewPassword("");
                   }}
                 />
               </Form.Group>
 
-              <Form.Group controlId={"registerConfirmPassword"}>
-                <Form.Label>Confirm password</Form.Label>
+              <Form.Group controlId={"changePasswordConfirmNewPassword"}>
+                <Form.Label>Confirm new password</Form.Label>
                 <Form.Control
                   required
                   type={"password"}
-                  value={confirmPassword}
+                  value={confirmNewPassword}
                   isValid={false}
                   onChange={(event) => {
                     const inputElement = event.target;
 
-                    setConfirmPassword(inputElement.value);
+                    setConfirmNewPassword(inputElement.value);
 
                     // This uses the constraint validation API to set this field
                     // as either valid or invalid.
                     inputElement.setCustomValidity(
-                      inputElement.value !== password
+                      inputElement.value !== newPassword
                         ? "Passwords don't match"
                         : ""
                     );
@@ -104,10 +104,10 @@ export function Register({ onRegister = async () => {} }) {
                 dismissible
                 className={"text-left"}
               >
-                <Alert.Heading>Registration Error</Alert.Heading>
+                <Alert.Heading>Change Password Error</Alert.Heading>
                 <p>
-                  An error occurred while attempting to register you. This error
-                  message was provided:
+                  An error occurred while attempting to change your password.
+                  This error message was provided:
                 </p>
 
                 <blockquote className="blockquote">
@@ -126,10 +126,6 @@ export function Register({ onRegister = async () => {} }) {
           </Form>
         </Card.Body>
       </Card>
-
-      <p className={"mt-3"}>
-        Already have an account? <Link to={ROUTES.LOGIN}>Login</Link>
-      </p>
     </Container>
   );
 }

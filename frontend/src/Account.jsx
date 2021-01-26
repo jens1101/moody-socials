@@ -17,8 +17,8 @@ export function Account({ username, onDelete = () => {} }) {
 
       <hr />
 
-      <Link to={ROUTES.EDIT_PASSWORD}>
-        <p>Edit Password</p>
+      <Link to={ROUTES.CHANGE_PASSWORD}>
+        <p>Change Password</p>
       </Link>
 
       <Link to={ROUTES.MANAGE_SOCIAL_PROFILES}>
