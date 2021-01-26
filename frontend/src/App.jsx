@@ -12,7 +12,13 @@ import { Register } from "./Register";
 import { ManageSocialProfiles } from "./ManageSocialProfiles";
 import { Account } from "./Account";
 import { NotFound } from "./NotFound";
-import { getStoredUserData, login, logout, register } from "./provider";
+import {
+  deleteAccount,
+  getStoredUserData,
+  login,
+  logout,
+  register,
+} from "./provider";
 
 function App() {
   const [userData, setUserData] = useState(getStoredUserData());
@@ -32,6 +38,11 @@ function App() {
     // TODO: if the user is currently on a guarded route then take him home
     setDisableLogout(false);
     setUserData(getStoredUserData());
+  }
+
+  async function onDelete(username) {
+    await deleteAccount(username);
+    // TODO: if the user is currently on a guarded route then take him home
   }
 
   return (
@@ -99,7 +110,7 @@ function App() {
             <ManageSocialProfiles />
           </Route>
           <Route path={"/account"}>
-            <Account username={userData.username} />
+            <Account username={userData?.username} onDelete={onDelete} />
           </Route>
           <Route path="*">
             {/* 404 page */}

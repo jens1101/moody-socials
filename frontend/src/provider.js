@@ -50,3 +50,15 @@ export async function logout() {
 
   localStorage.clear();
 }
+
+export async function deleteAccount(username) {
+  await simulateLag();
+
+  const userData = getStoredUserData();
+
+  if (userData.username !== username) {
+    throw new Error("Could not delete account");
+  }
+
+  localStorage.clear();
+}
