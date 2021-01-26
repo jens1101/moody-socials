@@ -1,5 +1,4 @@
-// TODO: add comments!
-
+// TODO: remove this once we have actual calls to the backend
 async function simulateLag(min = 400, max = 1500) {
   await new Promise((resolve) =>
     setTimeout(resolve, min + Math.random() * (max - min))
