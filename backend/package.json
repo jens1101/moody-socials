@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "cd server && nodemon server.js"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,6 @@
     "express-session": "^1.15.6",
     "mysql": "^2.16.0",
     "pg": "^8.5.1",
-    "pug": "^2.0.3",
     "util.promisify": "^1.0.0"
   },
   "devDependencies": {

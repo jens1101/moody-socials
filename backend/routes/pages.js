@@ -5,30 +5,6 @@ const router = express.Router();
 
 const user = new User();
 
-
-router.get('/', (req, res, next) => {
-    let user = req.session.user;
-    
-    if(user) {
-        res.redirect('/home');
-        return;
-    }
-    
-    res.render('index');
-})
-
-
-router.get('/home', (req, res, next) => {
-    let user = req.session.user;
-
-    if(user) {
-        res.render('home', {opp:req.session.opp, name:user.username});
-        return;
-    }
-    res.redirect('/');
-});
-
-
 router.post('/login', (req, res, next) => {
     
     user.login(req.body.email, req.body.password, function(result) {
