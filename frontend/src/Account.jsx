@@ -17,13 +17,15 @@ export function Account({ username, onDelete = () => {} }) {
 
       <hr />
 
-      <Link to={ROUTES.CHANGE_PASSWORD}>
-        <p>Change Password</p>
-      </Link>
+      <p>
+        <Link to={ROUTES.CHANGE_PASSWORD}>Change Password</Link>
+      </p>
 
-      <Link to={ROUTES.MANAGE_SOCIAL_PROFILES}>
-        <p>Manage Social Media Profiles</p>
-      </Link>
+      <p>
+        <Link to={ROUTES.MANAGE_SOCIAL_PROFILES}>
+          Manage Social Media Profiles
+        </Link>
+      </p>
 
       <hr />
 
