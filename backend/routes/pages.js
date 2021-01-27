@@ -50,7 +50,6 @@ router.post('/register', (req, res, next) => {
    
     let userInput = {
         username: req.body.username,
-        fullname: req.body.email,
         password: req.body.password
     };
    

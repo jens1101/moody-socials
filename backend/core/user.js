@@ -41,7 +41,7 @@ User.prototype = {
             bind.push(body[prop]);
         }
         
-        let sql = `INSERT INTO users(username, fullname, password) VALUES (?, ?, ?)`;
+        let sql = `INSERT INTO users(username, password) VALUES (?, ?, ?)`;
       
         pool.query(sql, bind, function(err, result) {
             if(err) throw err;
