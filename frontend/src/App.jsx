@@ -50,7 +50,7 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Navbar variant={"dark"} bg={"dark"} expand={"sm"}>
         <Container>
           <Navbar.Brand>Moody Socials</Navbar.Brand>
