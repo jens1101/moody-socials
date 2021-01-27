@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link, HashRouter } from "react-router-dom";
 import { ROUTES } from "./constants";
 import { PrivateRoute } from "./PrivateRoute";
 import { Home } from "./Home";
@@ -50,7 +50,7 @@ function App() {
   }
 
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <HashRouter>
       <Navbar variant={"dark"} bg={"dark"} expand={"sm"}>
         <Container>
           <Navbar.Brand>Moody Socials</Navbar.Brand>
@@ -138,7 +138,7 @@ function App() {
           {/* TODO: add a guard here to prevent accessing routes when you are not logged in */}
         </Switch>
       </main>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
