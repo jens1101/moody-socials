@@ -8,6 +8,11 @@ const app = new Twit({
   access_token: process.env.TWITTER_ACCESS_TOKEN,
   access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
 });
+const MOODS = {
+  POSITIVE: "positive",
+  NEGATIVE: "negative",
+  NEUTRAL: "neutral",
+};
 
 async function timelineTweets(req) {
   const params = {
@@ -15,7 +20,7 @@ async function timelineTweets(req) {
     lang: "en",
   };
 
-  let response = await getTweets("/statuses/home_timeline", params);
+  const response = await getTweets("/statuses/home_timeline", params);
   return await getSentimentScore(response.data, req.query.mood);
 }
 
@@ -27,7 +32,7 @@ async function searchForTweets(req) {
     count: 100,
   };
 
-  let response = await getTweets("/search/tweets", params);
+  const response = await getTweets("/search/tweets", params);
   return await getSentimentScore(response.data.statuses, req.query.mood);
 }
 
@@ -43,22 +48,29 @@ async function getSentimentScore(tweets, mood) {
   let arrRes = [];
 
   for (const tweet of tweets) {
-    if (tweet.lang === "en") {
-      let score = sentiment.analyze(tweet.full_text).score;
+    if (tweet.lang !== "en") {
+      continue;
+    }
 
-      if (score > 0 && mood === "positive") {
-        // Mood 1 == Positive
+    if (!Object.values(MOODS).includes(mood)) {
+      arrRes.push(createResponseObject(tweet));
+      continue;
+    }
 
-        arrRes.push(createResponseObject(tweet));
-      } else if (score < 0 && mood === "negative") {
-        // Mood -1 == Negative
+    const score = sentiment.analyze(tweet.full_text).score;
 
-        arrRes.push(createResponseObject(tweet));
-      } else if (score === 0 && mood === "neutral") {
-        // Neutral
+    if (score > 0 && mood === MOODS.POSITIVE) {
+      // Mood 1 == Positive
 
-        arrRes.push(createResponseObject(tweet));
-      }
+      arrRes.push(createResponseObject(tweet));
+    } else if (score < 0 && mood === MOODS.NEGATIVE) {
+      // Mood -1 == Negative
+
+      arrRes.push(createResponseObject(tweet));
+    } else if (score === 0 && mood === MOODS.NEUTRAL) {
+      // Neutral
+
+      arrRes.push(createResponseObject(tweet));
     }
   }
 
