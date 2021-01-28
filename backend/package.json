@@ -23,9 +23,7 @@
     "express-session": "^1.15.6",
     "pg": "^8.5.1",
     "sentiment": "^5.0.1",
-    "twit": "^2.2.5",
-    "twitter-lite": "^0.11.0",
-    "util.promisify": "^1.0.0"
+    "twit": "^2.2.5"
   },
   "devDependencies": {
     "dotenv": "^8.2.0",
