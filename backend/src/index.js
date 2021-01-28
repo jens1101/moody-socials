@@ -13,7 +13,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: process.env.COOKIE_MAX_AGE_MS,
+      maxAge: parseInt(process.env.COOKIE_MAX_AGE_MS),
     },
   })
 );
