@@ -1,7 +1,8 @@
 const Twit = require("twit");
 const Sentiment = require("sentiment");
-const sentiment = new Sentiment();
-const config = require("backend/src/config");
+const config = require("../config");
+
+const sentiment = new Sentiment({});
 const app = new Twit(config);
 
 async function timelineTweets(req) {

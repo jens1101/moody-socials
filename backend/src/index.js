@@ -1,5 +1,5 @@
 const express = require("express");
-const router = require("backend/src/router");
+const router = require("./router");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const cors = require("cors");

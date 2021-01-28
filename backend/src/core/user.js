@@ -1,4 +1,4 @@
-const pool = require("backend/src/core/pool");
+const pool = require("./pool");
 const bcrypt = require("bcrypt");
 
 function User() {}

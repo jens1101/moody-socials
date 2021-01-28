@@ -1,5 +1,5 @@
 const express = require("express");
-const User = require("backend/src/core/user");
+const User = require("../core/user");
 const router = express.Router();
 
 const user = new User();

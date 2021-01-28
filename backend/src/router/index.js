@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-router.use("/", require("backend/src/router/twitterRouter"));
-router.use("/", require("backend/src/router/pages"));
+router.use("/", require("./twitterRouter"));
+router.use("/", require("./pages"));
 
 module.exports = router;

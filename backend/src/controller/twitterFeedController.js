@@ -1,4 +1,4 @@
-const twitterService = require("backend/src/service/twitter");
+const twitterService = require("../service/twitter");
 
 exports.timelineTweets = async (req, res) => {
   try {
