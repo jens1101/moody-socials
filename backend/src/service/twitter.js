@@ -42,7 +42,7 @@ async function getTweets(path, params) {
 async function getSentimentScore(tweets, mood) {
   let arrRes = [];
 
-  for (tweet of tweets) {
+  for (const tweet of tweets) {
     if (tweet.lang === "en") {
       let score = sentiment.analyze(tweet.full_text).score;
 
@@ -66,7 +66,7 @@ async function getSentimentScore(tweets, mood) {
 }
 
 function createResponseObject(tweet) {
-  let responseTweet = new Object();
+  let responseTweet = {};
   responseTweet.name = tweet.user.name;
   responseTweet.text = tweet.full_text;
   return responseTweet;

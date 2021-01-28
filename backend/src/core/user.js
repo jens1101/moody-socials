@@ -4,10 +4,8 @@ const bcrypt = require("bcrypt");
 function User() {}
 
 User.prototype = {
-  find: function (user = null, callback) {
-    if (user) {
-      var field = Number.isInteger(user) ? "id" : "username";
-    }
+  find: function (user, callback) {
+    const field = Number.isInteger(user) ? "id" : "username";
 
     let sql = `SELECT * FROM users WHERE ${field} = ?`;
 
@@ -22,20 +20,13 @@ User.prototype = {
     });
   },
 
-  create: function (body, callback) {
-    var encryptedPassword = body.password;
+  create: function ({ username, password }, callback) {
+    const encryptedPassword = bcrypt.hashSync(password, 10);
 
-    body.password = bcrypt.hashSync(encryptedPassword, 10);
+    const sql = `INSERT INTO users(username, password) VALUES (?, ?)`;
+    const values = [username, encryptedPassword];
 
-    var bind = [];
-
-    for (prop in body) {
-      bind.push(body[prop]);
-    }
-
-    let sql = `INSERT INTO users(username, password) VALUES (?, ?, ?)`;
-
-    pool.query(sql, bind, function (err, result) {
+    pool.query(sql, values, function (err, result) {
       if (err) throw err;
 
       callback(result.insertId);

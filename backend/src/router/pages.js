@@ -4,7 +4,7 @@ const router = express.Router();
 
 const user = new User();
 
-router.post("/login", (req, res, next) => {
+router.post("/login", (req, res) => {
   user.login(req.body.email, req.body.password, function (result) {
     if (result) {
       req.session.user = result;
@@ -17,7 +17,7 @@ router.post("/login", (req, res, next) => {
   });
 });
 
-router.post("/register", (req, res, next) => {
+router.post("/register", (req, res) => {
   let userInput = {
     username: req.body.username,
     password: req.body.password,
@@ -36,9 +36,11 @@ router.post("/register", (req, res, next) => {
   });
 });
 
-router.get("/loggout", (req, res, next) => {
+router.get("/logout", (req, res, next) => {
   if (req.session.user) {
-    req.session.destroy(function () {
+    req.session.destroy(function (err) {
+      if (err) next(err);
+
       res.redirect("/");
     });
   }
