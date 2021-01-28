@@ -1,9 +1,13 @@
 const Twit = require("twit");
 const Sentiment = require("sentiment");
-const config = require("../config");
 
 const sentiment = new Sentiment({});
-const app = new Twit(config);
+const app = new Twit({
+  consumer_key: process.env.TWITTER_CONSUMER_KEY,
+  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+  access_token: process.env.TWITTER_ACCESS_TOKEN,
+  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
+});
 
 async function timelineTweets(req) {
   const params = {
