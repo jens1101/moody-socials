@@ -1,0 +1,22 @@
+{
+  "name": "moody-socials",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write frontend/src/ frontend/public/ backend/src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jens1101/moody-socials.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jens1101/moody-socials/issues"
+  },
+  "homepage": "https://github.com/jens1101/moody-socials#readme",
+  "devDependencies": {
+    "prettier": "^2.2.1"
+  }
+}
