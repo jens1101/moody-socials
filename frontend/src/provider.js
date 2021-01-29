@@ -1,8 +1,29 @@
+import { API_BASE_URL } from "./constants";
+
 // TODO: remove this once we have actual calls to the backend
 async function simulateLag(min = 400, max = 1500) {
   await new Promise((resolve) =>
     setTimeout(resolve, min + Math.random() * (max - min))
   );
+}
+
+export async function getSocialFeed(mood = null) {
+  const url = new URL("/timelineTweets", API_BASE_URL);
+
+  if (mood) {
+    url.searchParams.set("mood", mood);
+  }
+
+  const res = await window.fetch(url.toString());
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(
+      data.error || "An error occurred while getting social feed"
+    );
+  }
+
+  return data;
 }
 
 export function getStoredUserData() {
