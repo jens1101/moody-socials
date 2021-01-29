@@ -6,7 +6,6 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 import { MOODS } from "./constants";
 import { getSocialFeed } from "./provider";
 
