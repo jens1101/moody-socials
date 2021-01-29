@@ -1,11 +1,10 @@
 {
   "name": "moody-socials-backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node src/index.js",
+    "dev": "nodemon -r dotenv/config src/index.js"
   },
   "repository": {
     "type": "git",
@@ -13,17 +12,22 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "sentiment": "^5.0.1",
-    "twit": "^2.2.5",
-    "twitter-lite": "^0.11.0"
-  },
   "bugs": {
     "url": "https://github.com/jens1101/moody-socials/issues"
   },
-  "homepage": "https://github.com/jens1101/moody-socials#readme"
+  "homepage": "https://github.com/jens1101/moody-socials#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-session": "^1.15.6",
+    "pg": "^8.5.1",
+    "sentiment": "^5.0.1",
+    "twit": "^2.2.5"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.7"
+  }
 }
