@@ -6,6 +6,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import { MOODS } from "./constants";
 import { getSocialFeed } from "./provider";
 
@@ -23,7 +24,7 @@ export function Feed() {
   const [showError, setShowError] = useState(false);
 
   const moodsDropdown = (
-    <DropdownButton title={mood.displayName}>
+    <DropdownButton title={`Mood: ${mood.displayName}`}>
       {MOODS.map((mood) => (
         <Dropdown.Item as="button" onSelect={() => setMood(mood)}>
           {mood.displayName}
@@ -71,7 +72,26 @@ export function Feed() {
 
       {/* Actual feed */}
       <Container className={"my-3"}>
-        {!showError && JSON.stringify(feed)}
+        {!showError &&
+          Array.isArray(feed) &&
+          feed.length > 0 &&
+          feed.map((post, index) => (
+            <Card key={`post-${index}`} className={"my-3"}>
+              <Card.Body>
+                <Card.Title>{post.name}</Card.Title>
+                <Card.Text>{post.text}</Card.Text>
+              </Card.Body>
+            </Card>
+          ))}
+
+        {!showError && Array.isArray(feed) && feed.length <= 0 && (
+          <div className={"text-center"}>
+            <h2>Feed is Empty</h2>
+
+            <p className={"lead"}>No posts could be found for your feed.</p>
+          </div>
+        )}
+
         {showError && (
           <Alert variant="danger">
             <Alert.Heading>Error Retrieving Social Feed</Alert.Heading>
